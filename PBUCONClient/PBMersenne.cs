@@ -38,7 +38,7 @@ namespace PBUCONClient
             return (y >> 18);
         }
 
-        public void init(UInt32 seed)
+        public void Init(UInt32 seed)
         {
             if (!initialState)
             {
@@ -48,7 +48,7 @@ namespace PBUCONClient
                     mt[mti] = 69069 * mt[mti - 1];
                 }
 
-                generate_numbers();
+                GenerateNumbers();
                 initialState = true;
             }
             else
@@ -57,7 +57,7 @@ namespace PBUCONClient
             }
         }
 
-        private void generate_numbers()
+        private void GenerateNumbers()
         {
             UInt32 y;
             UInt32[] mag01 = { 0x0, MATRIX_A };
@@ -81,16 +81,16 @@ namespace PBUCONClient
         }
 
         // This shouldn't really be called 
-        public UInt32 getNext()
+        public UInt32 GetNext()
         {
             if (mti >= N)
             {
                 if (mti == N + 1) // No seed set
                 {
                     // This might seem dumb, but Punkbuster still has it.
-                    init(4357);
+                    Init(4357);
                 }
-                generate_numbers();
+                GenerateNumbers();
                 initialState = false;
             }
 

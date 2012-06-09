@@ -10,23 +10,27 @@ namespace PBUCONClient
 
         private UInt32 staticKey;
         private byte[] challengeKey = new byte[16]; // Used in the packet
+        public byte[] ChallengeKey
+        {
+            get { return challengeKey; }
+        }
         private String password; // Used to generate keys
         private PBMersenne mt;
 
         public PBCrypt(String password)
         {
             this.password = password;
-            this.staticKey = BitConverter.ToUInt32(generateKey(STATIC_SEED), 0);
+            this.staticKey = BitConverter.ToUInt32(GenerateKey(STATIC_SEED), 0);
             this.mt = new PBMersenne();
         }
 
-        public void setServerChallenge(UInt32 serverChallenge)
+        public void SetServerChallenge(UInt32 serverChallenge)
         {
-            challengeKey = generateKey(serverChallenge);
-            challengeKey = encrypt(challengeKey);
+            challengeKey = GenerateKey(serverChallenge);
+            challengeKey = Encrypt(challengeKey);
         }
 
-        private byte[] generateKey(UInt32 seed)
+        private byte[] GenerateKey(UInt32 seed)
         {
             MD5_CTX mdContext = new MD5_CTX();
             IntPtr ptrPassword = Marshal.StringToHGlobalAnsi(password);
@@ -38,39 +42,39 @@ namespace PBUCONClient
             return mdContext.digest;
         }
 
-        private void initMersenne()
+        private void InitMersenne()
         {
-            mt.init(staticKey);
+            mt.Init(staticKey);
         }
 
-        public String decrypt(byte[] data)
+        public String Decrypt(byte[] data)
         {
-            initMersenne();
+            InitMersenne();
 
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < data.Length; i++)
             {
-                byte d = (byte)(data[i] ^ (byte)mt.getNext());
+                byte d = (byte)(data[i] ^ (byte)mt.GetNext());
                 sb.Append((char)d); // TODO: Fix this mess
             }
 
             return sb.ToString();
         }
 
-        public byte[] encrypt(String data)
+        public byte[] Encrypt(String data)
         {
-            return encrypt(ASCIIEncoding.ASCII.GetBytes(data));
+            return Encrypt(ASCIIEncoding.ASCII.GetBytes(data));
         }
 
-        public byte[] encrypt(byte[] data)
+        public byte[] Encrypt(byte[] data)
         {
-            initMersenne();
+            InitMersenne();
             byte[] output = new byte[data.Length];
 
             for (int i = 0; i < data.Length; i++)
             {
-                byte d = (byte)(data[i] ^ (byte)mt.getNext());
+                byte d = (byte)(data[i] ^ (byte)mt.GetNext());
                 output[i] = d;
             }
 

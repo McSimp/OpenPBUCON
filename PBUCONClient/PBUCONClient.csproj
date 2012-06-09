@@ -61,7 +61,9 @@
     <Compile Include="PBCrypt.cs" />
     <Compile Include="PBMD5.cs" />
     <Compile Include="PBMersenne.cs" />
-    <Compile Include="PBUCONClient.cs" />
+    <Compile Include="PBUCONServer.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
