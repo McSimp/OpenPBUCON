@@ -27,10 +27,14 @@ namespace PBUCONClient
             set { name = value; }
         }
 
-        private IPEndPoint ep;
+        private IPEndPoint endPoint;
+        public IPEndPoint EndPoint
+        {
+            get { return endPoint; }
+        }
         private void SetIPAddress(string ip, int port)
         {
-            this.ep = new IPEndPoint(IPAddress.Parse(ip), port);
+            this.endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
         }
 
         private PBCrypt crypt;
@@ -58,7 +62,7 @@ namespace PBUCONClient
             this.clientChallenge = (UInt32)random.Next(int.MinValue, int.MaxValue);
         }
 
-        private List<byte> GetBaseSendPacket(string ip, string port)
+        private List<byte> GetBaseSendPacket(string ip, int port)
         {
             //int packetLength = ip.Length + port.Length + this.username.Length + 35;
 
@@ -86,7 +90,7 @@ namespace PBUCONClient
         }
 
         // IP and port are YOUR ip and port
-        public byte[] GetCommandPacket(string command, string ip, string port)
+        public byte[] GetCommandPacket(string command, string ip, int port)
         {
             List<byte> basePacket = GetBaseSendPacket(ip, port);
             basePacket.AddRange(crypt.Encrypt(command));
@@ -95,7 +99,7 @@ namespace PBUCONClient
         }
 
         // IP and port are YOUR ip and port
-        public byte[] GetHeartbeatPacket(string ip, string port)
+        public byte[] GetHeartbeatPacket(string ip, int port)
         {
             List<byte> basePacket = GetBaseSendPacket(ip, port);
             basePacket.Add(0x00);

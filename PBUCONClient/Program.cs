@@ -31,7 +31,7 @@ ProtocolType.Udp);
 
             IPEndPoint endPoint = new IPEndPoint(serverAddr, 21000);
 
-            byte[] send_buffer = testServer.GetHeartbeatPacket("124.124.124.124", "27015");
+            byte[] send_buffer = testServer.GetHeartbeatPacket("124.124.124.124", 27015);
 
 
             //Console.WriteLine("[" + testServer.Name + "] Client challenge set to: " + testServer.clientChallenge.ToString("X8") + " aka " + testServer.clientChallenge);
