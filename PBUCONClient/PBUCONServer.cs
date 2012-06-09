@@ -6,7 +6,7 @@ using System.Net;
 
 namespace PBUCONClient
 {
-    class PBUCONClient
+    class PBUCONServer
     {
         private UInt32 clientChallenge = 0;
         private UInt32 serverChallenge = 0;
@@ -28,20 +28,29 @@ namespace PBUCONClient
 
         private PBCrypt crypt;
 
-        public PBUCONClient(string ip, int port, string username, string password)
+        public PBUCONServer(string ip, int port, string username, string password)
+        {
+            init(ip + ":" + port, ip, port, username, password);
+        }
+
+        public PBUCONServer(string name, string ip, int port, string username, string password)
+        {
+            init(name, ip, port, username, password);
+        }
+
+        private void init(string name, string ip, int port, string username, string password)
         {
             setIPAddress(ip, port);
             crypt = new PBCrypt(password);
 
+            this.Name = name;
             this.username = username;
             this.password = password;
 
             Random random = new Random();
-            this.clientChallenge = (uint)random.Next(int.MinValue, int.MaxValue);
-            //this.clientChallenge = 0x4dc663e2;
-            Console.WriteLine("Client challenge set to: " + this.clientChallenge.ToString("X8"));
-            
+            this.clientChallenge = (UInt32)random.Next(int.MinValue, int.MaxValue);
 
+            Console.WriteLine("Client challenge set to: " + this.clientChallenge.ToString("X8"));
         }
     }
 }
