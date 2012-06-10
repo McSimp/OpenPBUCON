@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PBMD5", "PBMD5\PBMD5.vcxproj", "{9B4D1695-72B7-441A-91E9-FE5DB867AAF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PBUCONClient", "PBUCONClient\PBUCONClient.csproj", "{EED2928A-7FD7-4D7B-A47B-3ECCCEFF149E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9B4D1695-72B7-441A-91E9-FE5DB867AAF7} = {9B4D1695-72B7-441A-91E9-FE5DB867AAF7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

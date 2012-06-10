@@ -17,6 +17,11 @@ namespace PBUCONClient
         {
             get { return serverChallenge; }
         }
+        private void SetServerChallenge(UInt32 chg)
+        {
+            this.serverChallenge = chg;
+            crypt.SetServerChallenge(chg);
+        }
 
         private String username;
         private String password;
@@ -105,6 +110,58 @@ namespace PBUCONClient
             basePacket.Add(0x00);
 
             return basePacket.ToArray();
+        }
+
+        // Horrible hack. Stupid endianness.
+        private UInt32 ReverseBytes(UInt32 value)
+        {
+            return (value & 0x000000FFU) << 24 | (value & 0x0000FF00U) << 8 |
+                   (value & 0x00FF0000U) >> 8 | (value & 0xFF000000U) >> 24;
+        }
+
+        // This is hacked together just to get a working example
+        public void ProcessPacket(byte[] data)
+        {
+            // Ensure the packet is big enough
+            if (data.Length < 8)
+            {
+                Console.WriteLine("Short packet from " + this.Name);
+                return;
+            }
+
+            UInt32 pktClientChallenge = BitConverter.ToUInt32(data, 0);
+            UInt32 pktServerChallenge = BitConverter.ToUInt32(data, 4);
+            if (BitConverter.IsLittleEndian)
+            {
+                // Reverse
+                pktClientChallenge = ReverseBytes(pktClientChallenge);
+                pktServerChallenge = ReverseBytes(pktServerChallenge);
+            }
+
+            if (pktClientChallenge != this.clientChallenge)
+            {
+                Console.WriteLine("Invalid client challenge from " + this.Name + " (Is " + pktClientChallenge.ToString("X8") + ", should be " + this.clientChallenge.ToString("X8") + ")");
+                return;
+            }
+
+            if (pktServerChallenge != this.serverChallenge)
+            {
+                UInt32 old = this.serverChallenge;
+                Console.WriteLine("New server challenge");
+                SetServerChallenge(pktServerChallenge);
+                //ServerChallengeChangedEventArgs change_e = new ServerChallengeChangedEventArgs(this.serverChallenge, old);
+                //this.OnServerChallengeChanged(change_e);
+            }
+
+            // This packet is only a heartbeat, screw further processing
+            if (data.Length < 10 && data[8] == 84)
+            {
+                return;
+            }
+
+            // Decrypt data and raise event
+            string message = crypt.Decrypt(data, 8);
+            Console.WriteLine("-> " + message);
         }
     }
 }

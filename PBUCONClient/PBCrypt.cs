@@ -47,13 +47,13 @@ namespace PBUCONClient
             mt.Init(staticKey);
         }
 
-        public String Decrypt(byte[] data)
+        public String Decrypt(byte[] data, int dataOffset = 0)
         {
             InitMersenne();
 
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < data.Length; i++)
+            for (int i = dataOffset; i < data.Length; i++)
             {
                 byte d = (byte)(data[i] ^ (byte)mt.GetNext());
                 sb.Append((char)d); // TODO: Fix this mess

@@ -50,6 +50,7 @@ namespace PBUCONClient
             if (sendingServer != null)
             {
                 // Process packet
+                sendingServer.ProcessPacket(receiveBytes);
             }
         }
 
