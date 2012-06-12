@@ -27,10 +27,17 @@ namespace PBUCONClient
             return ip;
         }
 
+        static void NewMessage(Object sender, UCONMessageEventArgs e)
+        {
+            PBUCONServer server = sender as PBUCONServer;
+            Console.WriteLine(server.Name + " -> " + e.Message);
+        }
+
         static void Main(string[] args)
         {
             // pb_sv_uconadd 1 124.170.53.60 simpuser simppass
             PBUCONServer wake = new PBUCONServer("Wake Rape", "203.46.105.23", 21000, "simpuser", "simppass");
+            wake.NewMessage += NewMessage;
             PBUCONClient test = new PBUCONClient(getExternalIP(), 33333);
             test.AddServer(wake);
 

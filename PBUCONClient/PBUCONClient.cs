@@ -54,13 +54,18 @@ namespace PBUCONClient
             }
         }
 
+        public void SendHeartbeat(PBUCONServer server)
+        {
+            byte[] data = server.GetHeartbeatPacket(this.listenIP, this.listenPort);
+            client.Send(data, data.Length, server.EndPoint);
+        }
+
         public void SendHeartbeats()
         {
             // Foreach server, construct the packet and send to that server's endpoint.
             foreach (PBUCONServer server in servers)
             {
-                byte[] data = server.GetHeartbeatPacket(this.listenIP, this.listenPort);
-                client.Send(data, data.Length, server.EndPoint);
+                SendHeartbeat(server);
             }
         }
     }

@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventArgExtensions.cs" />
+    <Compile Include="Events.cs" />
     <Compile Include="PBCrypt.cs" />
     <Compile Include="PBMD5.cs" />
     <Compile Include="PBMersenne.cs" />

@@ -44,6 +44,9 @@ namespace PBUCONClient
 
         private PBCrypt crypt;
 
+        public event EventHandler<UCONMessageEventArgs> NewMessage;
+        public event EventHandler<ServerChallengeChangedEventArgs> ServerChallengeChanged;
+
         public PBUCONServer(string name, string ip, int port, string username, string password)
         {
             Init(name, ip, port, username, password);
@@ -112,6 +115,21 @@ namespace PBUCONClient
             return basePacket.ToArray();
         }
 
+        private void OnNewMessage(string message)
+        {
+            UCONMessageEventArgs e = new UCONMessageEventArgs(message);
+            EventArgExtensions.Raise<UCONMessageEventArgs>(e, this, ref NewMessage);
+        }
+
+        private void OnServerChallengeChanged(UInt32 newChallenge)
+        {
+            UInt32 oldChallenge = this.serverChallenge;
+            SetServerChallenge(newChallenge);
+
+            ServerChallengeChangedEventArgs e = new ServerChallengeChangedEventArgs(newChallenge, oldChallenge);
+            EventArgExtensions.Raise<ServerChallengeChangedEventArgs>(e, this, ref ServerChallengeChanged);
+        }
+
         // Horrible hack. Stupid endianness.
         private UInt32 ReverseBytes(UInt32 value)
         {
@@ -146,11 +164,7 @@ namespace PBUCONClient
 
             if (pktServerChallenge != this.serverChallenge)
             {
-                UInt32 old = this.serverChallenge;
-                Console.WriteLine("New server challenge");
-                SetServerChallenge(pktServerChallenge);
-                //ServerChallengeChangedEventArgs change_e = new ServerChallengeChangedEventArgs(this.serverChallenge, old);
-                //this.OnServerChallengeChanged(change_e);
+                OnServerChallengeChanged(pktServerChallenge);
             }
 
             // This packet is only a heartbeat, screw further processing
@@ -161,7 +175,7 @@ namespace PBUCONClient
 
             // Decrypt data and raise event
             string message = crypt.Decrypt(data, 8);
-            Console.WriteLine("-> " + message);
+            OnNewMessage(message);
         }
     }
 }
