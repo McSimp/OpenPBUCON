@@ -143,7 +143,8 @@ namespace PBUCONClient
             // Ensure the packet is big enough
             if (data.Length < 8)
             {
-                Console.WriteLine("Short packet from " + this.Name);
+                // TODO: Error event
+                //Console.WriteLine("Short packet from " + this.Name);
                 return;
             }
 
@@ -158,7 +159,8 @@ namespace PBUCONClient
 
             if (pktClientChallenge != this.clientChallenge)
             {
-                Console.WriteLine("Invalid client challenge from " + this.Name + " (Is " + pktClientChallenge.ToString("X8") + ", should be " + this.clientChallenge.ToString("X8") + ")");
+               // TODO: Error event
+               //Console.WriteLine("Invalid client challenge from " + this.Name + " (Is " + pktClientChallenge.ToString("X8") + ", should be " + this.clientChallenge.ToString("X8") + ")");
                 return;
             }
 

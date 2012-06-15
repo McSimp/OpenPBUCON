@@ -26,6 +26,7 @@ namespace PBUCONClient
 
         public void AddServer(PBUCONServer server)
         {
+            server.ServerChallengeChanged += ServerChallengeChange;
             this.servers.Add(server);
         }
 
@@ -35,6 +36,7 @@ namespace PBUCONClient
             byte[] receiveBytes = this.client.EndReceive(ar, ref endPoint);
 
             this.client.BeginReceive(new AsyncCallback(ReceiveMessage), null); // Be ready to receieve again
+
             // Figure out which server sent the packet
             PBUCONServer sendingServer = null;
             foreach (PBUCONServer server in servers)
@@ -49,9 +51,16 @@ namespace PBUCONClient
 
             if (sendingServer != null)
             {
-                // Process packet
                 sendingServer.ProcessPacket(receiveBytes);
             }
+        }
+        
+        // Need this because a heartbeat needs to be sent when the challenge
+        // is changed
+        private void ServerChallengeChange(Object sender, ServerChallengeChangedEventArgs e)
+        {
+            PBUCONServer server = sender as PBUCONServer;
+            SendHeartbeat(server);
         }
 
         public void SendHeartbeat(PBUCONServer server)
@@ -62,10 +71,23 @@ namespace PBUCONClient
 
         public void SendHeartbeats()
         {
-            // Foreach server, construct the packet and send to that server's endpoint.
             foreach (PBUCONServer server in servers)
             {
                 SendHeartbeat(server);
+            }
+        }
+
+        public void SendCommand(PBUCONServer server, string command)
+        {
+            byte[] data = server.GetCommandPacket(command, this.listenIP, this.listenPort);
+            client.Send(data, data.Length, server.EndPoint);
+        }
+
+        public void BroadcastCommand(string command)
+        {
+            foreach (PBUCONServer server in servers)
+            {
+                SendCommand(server, command);
             }
         }
     }
