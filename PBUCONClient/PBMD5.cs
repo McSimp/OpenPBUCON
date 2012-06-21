@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace PBUCONClient
 {
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct MD5_CTX
+    struct MD5_CTX
     {
         [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 2, ArraySubType = UnmanagedType.U4)]
         public uint[] i;
@@ -19,7 +19,7 @@ namespace PBUCONClient
         public byte[] digest; 
     }
 
-    public static class PBMD5
+    static class PBMD5
     {
         [DllImport("PBMD5.dll")]
         public static extern void MD5Init(ref MD5_CTX mdContext, UInt32 pseudoRandomNumber = 0);

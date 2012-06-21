@@ -4,12 +4,13 @@ using System.IO;
 
 namespace PBUCONClient
 {
+    /*
     class Program
     {
         static string getExternalIP()
         {
-            string api_url = "http://automation.whatismyip.com/n09230945.asp";
-            WebRequest getReq = WebRequest.Create(api_url);
+            string apiURL = "http://automation.whatismyip.com/n09230945.asp";
+            WebRequest getReq = WebRequest.Create(apiURL);
             Stream responseStream = getReq.GetResponse().GetResponseStream();
             StreamReader responseReader = new StreamReader(responseStream);
 
@@ -42,8 +43,10 @@ namespace PBUCONClient
             PBUCONServer wake = new PBUCONServer("Wake Rape", "203.46.105.23", 21000, "simpuser", "simppass");
             wake.NewMessage += NewMessage;
             wake.ServerChallengeChanged += ChallengeChange;
+            wake.Active = true;
             PBUCONClient test = new PBUCONClient(getExternalIP(), 33333);
             test.AddServer(wake);
+            Console.WriteLine("Client challenge: " + wake.ClientChallenge.ToString("X8"));
 
             while (true)
             {
@@ -57,8 +60,13 @@ namespace PBUCONClient
                     test.BroadcastCommand("pbuconexit");
                     break;
                 }
+                else
+                {
+                    test.BroadcastCommand(command);
+                }
                 Console.WriteLine("Command was: " + command);
             }
         }
     }
+    */
 }

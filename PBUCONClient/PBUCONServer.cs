@@ -5,7 +5,7 @@ using System.Net;
 
 namespace PBUCONClient
 {
-    class PBUCONServer
+    public class PBUCONServer
     {
         private UInt32 clientChallenge = 0;
         public UInt32 ClientChallenge
@@ -21,6 +21,13 @@ namespace PBUCONClient
         {
             this.serverChallenge = chg;
             crypt.SetServerChallenge(chg);
+        }
+
+        private bool active = false;
+        public bool Active
+        {
+            get { return active; }
+            set { active = value; }
         }
 
         private String username;
@@ -97,7 +104,7 @@ namespace PBUCONClient
             return packetData;
         }
 
-        // IP and port are YOUR ip and port
+        // IP and port are YOUR ip and port, not the server's
         public byte[] GetCommandPacket(string command, string ip, int port)
         {
             List<byte> basePacket = GetBaseSendPacket(ip, port);
@@ -106,7 +113,7 @@ namespace PBUCONClient
             return basePacket.ToArray();
         }
 
-        // IP and port are YOUR ip and port
+        // IP and port are YOUR ip and port, not the server's
         public byte[] GetHeartbeatPacket(string ip, int port)
         {
             List<byte> basePacket = GetBaseSendPacket(ip, port);
@@ -143,7 +150,7 @@ namespace PBUCONClient
             // Ensure the packet is big enough
             if (data.Length < 8)
             {
-                // TODO: Error event
+                // TODO: Error event for short packet
                 //Console.WriteLine("Short packet from " + this.Name);
                 return;
             }
@@ -159,7 +166,7 @@ namespace PBUCONClient
 
             if (pktClientChallenge != this.clientChallenge)
             {
-               // TODO: Error event
+               // TODO: Error event for invalid client challenge/header mismatch
                //Console.WriteLine("Invalid client challenge from " + this.Name + " (Is " + pktClientChallenge.ToString("X8") + ", should be " + this.clientChallenge.ToString("X8") + ")");
                 return;
             }
@@ -176,7 +183,7 @@ namespace PBUCONClient
             }
 
             // Decrypt data and raise event
-            string message = crypt.Decrypt(data, 8);
+            string message = crypt.Decrypt(data, 8); // 8 is the offset in the packet to the data
             OnNewMessage(message);
         }
     }

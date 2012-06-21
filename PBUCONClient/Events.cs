@@ -2,7 +2,7 @@
 
 namespace PBUCONClient
 {
-    class UCONMessageEventArgs : EventArgs
+    public class UCONMessageEventArgs : EventArgs
     {
         private readonly string message;
         public string Message 
@@ -16,7 +16,7 @@ namespace PBUCONClient
         }
     }
 
-    class ServerChallengeChangedEventArgs : EventArgs
+    public class ServerChallengeChangedEventArgs : EventArgs
     {
         private readonly UInt32 newServerChg;
         public UInt32 NewServerChallenge 

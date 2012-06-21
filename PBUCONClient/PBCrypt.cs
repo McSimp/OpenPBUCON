@@ -56,7 +56,10 @@ namespace PBUCONClient
             for (int i = dataOffset; i < data.Length; i++)
             {
                 byte d = (byte)(data[i] ^ (byte)mt.GetNext());
-                sb.Append((char)d); // TODO: Fix this mess
+                if(d != 0x0)
+                {
+                    sb.Append((char)d); // TODO: Fix this mess
+                }
             }
 
             return sb.ToString();

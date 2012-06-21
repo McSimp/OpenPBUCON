@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PBUCONClient", "PBUCONClien
 		{9B4D1695-72B7-441A-91E9-FE5DB867AAF7} = {9B4D1695-72B7-441A-91E9-FE5DB867AAF7}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormPBUCON", "WinFormPBUCON\WinFormPBUCON.csproj", "{FC8907AB-4340-4A5B-8A3B-EBF65E149261}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -38,6 +40,16 @@ Global
 		{EED2928A-7FD7-4D7B-A47B-3ECCCEFF149E}.Release|Win32.ActiveCfg = Release|x86
 		{EED2928A-7FD7-4D7B-A47B-3ECCCEFF149E}.Release|x86.ActiveCfg = Release|x86
 		{EED2928A-7FD7-4D7B-A47B-3ECCCEFF149E}.Release|x86.Build.0 = Release|x86
+		{FC8907AB-4340-4A5B-8A3B-EBF65E149261}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{FC8907AB-4340-4A5B-8A3B-EBF65E149261}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{FC8907AB-4340-4A5B-8A3B-EBF65E149261}.Debug|Win32.ActiveCfg = Debug|x86
+		{FC8907AB-4340-4A5B-8A3B-EBF65E149261}.Debug|x86.ActiveCfg = Debug|x86
+		{FC8907AB-4340-4A5B-8A3B-EBF65E149261}.Debug|x86.Build.0 = Debug|x86
+		{FC8907AB-4340-4A5B-8A3B-EBF65E149261}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{FC8907AB-4340-4A5B-8A3B-EBF65E149261}.Release|Mixed Platforms.Build.0 = Release|x86
+		{FC8907AB-4340-4A5B-8A3B-EBF65E149261}.Release|Win32.ActiveCfg = Release|x86
+		{FC8907AB-4340-4A5B-8A3B-EBF65E149261}.Release|x86.ActiveCfg = Release|x86
+		{FC8907AB-4340-4A5B-8A3B-EBF65E149261}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
