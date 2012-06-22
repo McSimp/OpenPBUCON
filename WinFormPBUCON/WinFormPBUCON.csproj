@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,6 +54,12 @@
     <Compile Include="frmAddServer.Designer.cs">
       <DependentUpon>frmAddServer.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBroadcastCommand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBroadcastCommand.Designer.cs">
+      <DependentUpon>frmBroadcastCommand.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMainApp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +73,9 @@
     <Compile Include="ServerTab.cs" />
     <EmbeddedResource Include="frmAddServer.resx">
       <DependentUpon>frmAddServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBroadcastCommand.resx">
+      <DependentUpon>frmBroadcastCommand.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMainApp.resx">
       <DependentUpon>frmMainApp.cs</DependentUpon>
@@ -88,6 +98,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PBUCONClient\PBUCONClient.csproj">

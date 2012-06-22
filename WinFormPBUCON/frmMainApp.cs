@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace WinFormPBUCON
@@ -39,7 +34,7 @@ namespace WinFormPBUCON
 
         private void broadcastCommandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: Create form and broadcast message
+            this.manager.BroadcastCommandDialog();
         }
 
         private void frmMainApp_FormClosing(object sender, FormClosingEventArgs e)

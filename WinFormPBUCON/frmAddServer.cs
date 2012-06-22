@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Windows.Forms;
 
 namespace WinFormPBUCON
@@ -9,11 +10,24 @@ namespace WinFormPBUCON
 
         public frmAddServer(ServerManager manager)
         {
-            this.manager = manager;
             InitializeComponent();
+            this.manager = manager;
         }
 
-        private void btnAddServer_Click(object sender, System.EventArgs e)
+        private void btnAddServer_Click(object sender, EventArgs e)
+        {
+            ProcessForm();
+        }
+
+        private void textbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // 13 is enter. TODO: 13 is ugly.
+            {
+                ProcessForm();
+            }
+        }
+
+        private void ProcessForm()
         {
             // Validate form
             string name = tbServerName.Text;
@@ -52,6 +66,7 @@ namespace WinFormPBUCON
                 return;
             }
 
+            // Tell the manager we've got a new server
             manager.AddServer(name, ip, port, username, password);
             this.Close();
         }

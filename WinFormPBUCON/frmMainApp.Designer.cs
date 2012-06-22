@@ -110,7 +110,7 @@
             this.autoScrollToolStripMenuItem.CheckOnClick = true;
             this.autoScrollToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoScrollToolStripMenuItem.Name = "autoScrollToolStripMenuItem";
-            this.autoScrollToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.autoScrollToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.autoScrollToolStripMenuItem.Text = "Auto Scroll";
             // 
             // frmMainApp
@@ -121,6 +121,7 @@
             this.Controls.Add(this.serverTabs);
             this.Controls.Add(this.mainMenuStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenuStrip;
             this.MinimumSize = new System.Drawing.Size(400, 200);
             this.Name = "frmMainApp";

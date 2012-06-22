@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Net;
 using System.Windows.Forms;
 using PBUCONClient;
 
@@ -34,8 +32,6 @@ namespace WinFormPBUCON
         public void StartPBClient(string ip, int port)
         {
             this.client = new PBUCONClient.PBUCONClient(ip, port);
-            AddServer("Wake", "203.46.105.23", 21000, "simpuser", "simppass");
-            //AddServer("Karkand", "203.46.105.23", 20300, "simpuser", "simppass");
         }
 
         public void AddServerDialog()
@@ -56,6 +52,12 @@ namespace WinFormPBUCON
             this.client.AddServer(server);
             ServerAddedEventArgs e = new ServerAddedEventArgs(server);
             EventArgExtensions.Raise <ServerAddedEventArgs>(e, this, ref ServerAdded);
+        }
+
+        public void BroadcastCommandDialog()
+        {
+            Form frmBroadcastCommand = new frmBroadcastCommand(this);
+            frmBroadcastCommand.ShowDialog();
         }
 
         public void BroadcastCommand(string command)
