@@ -9,6 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PBUCONClient", "PBUCONClien
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormPBUCON", "WinFormPBUCON\WinFormPBUCON.csproj", "{FC8907AB-4340-4A5B-8A3B-EBF65E149261}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9B4D1695-72B7-441A-91E9-FE5DB867AAF7} = {9B4D1695-72B7-441A-91E9-FE5DB867AAF7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
